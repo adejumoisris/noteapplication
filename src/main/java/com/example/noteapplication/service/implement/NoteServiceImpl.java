@@ -5,6 +5,8 @@ import com.example.noteapplication.repository.NoteRepository;
 import com.example.noteapplication.service.NoteService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class NoteServiceImpl implements NoteService {
 
@@ -29,5 +31,16 @@ public class NoteServiceImpl implements NoteService {
         note.setContent(content);
        Note updatedNote =  noteRepository.save(note);
         return updatedNote;
+    }
+
+    @Override
+    public void deleteNoteForUser(Long noteId, String username) {
+        noteRepository.deleteById(noteId);
+    }
+
+    @Override
+    public List<Note> getNotesForUser(String username) {
+       List<Note> personaNotes= noteRepository.findByOwnerUsername(username);
+        return personaNotes;
     }
 }
