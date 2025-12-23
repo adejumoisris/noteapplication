@@ -44,12 +44,12 @@ public class Role {
         this.roleId = roleId;
     }
 
-    public AppRole getAppRole() {
+    public AppRole getRoleName() {
         return roleName;
     }
 
-    public void setAppRole(AppRole appRole) {
-        this.roleName = appRole;
+    public void setRoleName(AppRole roleName) {
+        this.roleName = roleName;
     }
 
     public Set<User> getUsers() {
