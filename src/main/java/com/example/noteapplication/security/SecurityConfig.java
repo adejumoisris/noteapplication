@@ -12,12 +12,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-
-import javax.sql.DataSource;
 
 import java.time.LocalDate;
 
@@ -31,7 +26,10 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) {
-        http.authorizeHttpRequests((requests)-> requests.anyRequest().authenticated());
+        http.authorizeHttpRequests((requests)
+                -> requests
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated());
 //        http.formLogin(withDefaults());
         http.csrf(AbstractHttpConfigurer::disable);
         http.httpBasic(withDefaults());
